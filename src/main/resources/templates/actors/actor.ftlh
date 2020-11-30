@@ -7,15 +7,21 @@
         <#if actor.get().deleted>
             <div style="text-align: center">Ошибка. Страница актёра удалена.</div>
         <#else>
-            <h3 class="border-success border-bottom" style="padding-bottom: 10px; margin-bottom: 10px; text-align: center">
-                Страница актёра</h3>
-            <div class="row">
-                <div class="col-3 border-success border-right" style="text-align: center">
-                    <img src="${actor.get().imageUrl}" alt="${actor.get().name}" style="max-width: 200px">
-                </div>
-                <div class="col-5">
-                    <p><b>Имя актёра:</b> ${actor.get().name}</p>
-                    <p><b>Возраст:</b> ${actor.get().age}</p>
+            <h3 class="border-success border-bottom"
+                style="padding-bottom: 10px; margin-bottom: 10px; text-align: center">Страница актёра</h3>
+            <div class="card m-2">
+                <h5 class="card-header"><a href="/actor/${actor.get().id}" class="text-success">${actor.get().name}</a>
+                </h5>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-3 border-success border-right" style="text-align: center">
+                            <img src="${actor.get().imageUrl}" alt="${actor.get().name}" style="max-width: 200px">
+                        </div>
+                        <div class="col-5">
+                            <p><b>Имя:</b> ${actor.get().name}</p>
+                            <p><b>Возраст:</b> ${actor.get().age}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </#if>

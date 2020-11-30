@@ -49,6 +49,6 @@ public class ActorController {
         Iterable<Actor> actors = actorRepository.findAllWithoutDeleted();
         model.addAttribute("actors", actors);
 
-        return "actors/index";
+        return "actors/all";
     }
 }

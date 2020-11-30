@@ -15,16 +15,10 @@ public interface MovieRepository extends CrudRepository<Movie, Long> {
 
     @Query("select m from Movie m where m.isDeleted = false")
     Iterable<Movie> findAllWithoutDeleted();
-    /*@Query(
-            value = "select * from movie_genre m where m.genre = :incomingGenre",
-            nativeQuery = true)
-    List<Long> findAllByGenre(String incomingGenre);
 
-    @Query(value = "SELECT m FROM Movie m WHERE m.genre IN :genres")
-    List<Movie> findUserByNameList(@Param("names") Collection<String> genres);*/
+    @Query(value = "select movie_id from movie_genre m where m.genre = ?1", nativeQuery = true)
+    List<Long> findMoviesIdByGenre(String incomingGenre);
 
-
-    /*@Query("select m from Movie m where m.genre = ?1")
-    List<Movie> findAllByGenre(String incomingGenre);*/
-
+    @Query(value = "SELECT m FROM Movie m WHERE m.id IN :anyList")
+    Iterable<Movie> findAllById(@Param("anyList") Collection<Long> anyList);
 }

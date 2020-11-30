@@ -19,37 +19,6 @@ public class MovieController {
         this.movieRepository = movieRepository;
     }
 
-    @RequestMapping("/add1")
-    public @ResponseBody
-    Movie addNewUser(
-            @RequestParam String name,
-            @RequestParam String imageUrl,
-            @RequestParam int duration,
-            @RequestParam int year,
-            @RequestParam String country,
-            @RequestParam String stageDirector,
-            @RequestParam List<String> genre,
-            @RequestParam List<Actor> actor
-    ) {
-        Movie m = new Movie();
-        m.setName(name);
-        m.setImageUrl(imageUrl);
-        m.setDuration(duration);
-        m.setYear(year);
-        m.setCountry(country);
-        m.setStageDirector(stageDirector);
-        m.setGenre(genre);
-        m.setActor(actor);
-        movieRepository.save(m);
-        return m;
-    }
-
-    @GetMapping("/get/{id}")
-    public @ResponseBody
-    Optional<Movie> getMovie(@PathVariable Long id) {
-        return movieRepository.findById(id);
-    }
-
     @GetMapping("/add")
     public String addMovie() {
         return "movies/add";
@@ -88,16 +57,28 @@ public class MovieController {
         Iterable<Movie> movies = movieRepository.findAllWithoutDeleted();
         model.addAttribute("movies", movies);
 
-        return "movies/index";
+        return "movies/all";
     }
 
     @GetMapping("/search/country/{country}")
     public String searchByCountry(@PathVariable String country,
-                                           Model model
+                                  Model model
     ) {
         Iterable<Movie> allByCountry = movieRepository.findAllByCountry(country);
         model.addAttribute("movies", allByCountry);
         model.addAttribute("country", country);
+
+        return "movies/searchResult";
+    }
+
+    @GetMapping("/search/genre/{genre}")
+    public String searchByGenre(@PathVariable String genre,
+                                Model model
+    ) {
+        List<Long> moviesIdByGenre = movieRepository.findMoviesIdByGenre(genre);
+        Iterable<Movie> allById = movieRepository.findAllById(moviesIdByGenre);
+        model.addAttribute("movies", allById);
+        model.addAttribute("genre", genre);
 
         return "movies/searchResult";
     }

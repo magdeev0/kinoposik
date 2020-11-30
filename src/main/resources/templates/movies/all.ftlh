@@ -1,7 +1,7 @@
 <#import "../parts/common.ftlh" as c>
+
 <@c.page>
-    <h3 class="border-success border-bottom"
-        style="padding-bottom: 10px; margin-bottom: 10px; text-align: center">Фильтр фильмов <#if country??>по стране ${country}</#if><#if genre??>по жанру ${genre}</#if></h3>
+    <h3 class="border-success border-bottom" style="padding-bottom: 10px; margin-bottom: 10px; text-align: center">Все фильмы</h3>
     <#list movies as movie>
         <div class="card m-2">
             <h5 class="card-header"><a href="/movie/${movie.id}" class="text-success">${movie.name}</a></h5>
@@ -20,6 +20,6 @@
             </div>
         </div>
     <#else>
-        Не нашлось фильмов с подходящей страной
+        Нет добавленных фильмов
     </#list>
 </@c.page>
