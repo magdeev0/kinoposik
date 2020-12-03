@@ -3,12 +3,12 @@
     <h3 class="border-success border-bottom"
         style="padding-bottom: 10px; margin-bottom: 10px; text-align: center">Фильтр фильмов <#if country??>по стране ${country}</#if><#if genre??>по жанру ${genre}</#if></h3>
     <#list movies as movie>
-        <div class="card m-2">
+        <div class="card m-3 shadow-sm rounded">
             <h5 class="card-header"><a href="/movie/${movie.id}" class="text-success">${movie.name}</a></h5>
             <div class="card-body">
                 <div class="row">
                     <div class="col-3 border-success border-right" style="text-align: center">
-                        <a href="/movie/${movie.id}"><img src="${movie.imageUrl}" alt="${movie.name}" title="${movie.name}" style="max-height: 100px"></a>
+                        <a href="/movie/${movie.id}"><img src="${movie.imageUrl}" alt="${movie.name}" title="${movie.name}" style="max-height: 150px"></a>
                     </div>
                     <div class="col-5">
                         <p class="card-text"><b>Название:</b> ${movie.name}</p>

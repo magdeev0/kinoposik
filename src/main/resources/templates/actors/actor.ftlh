@@ -1,4 +1,5 @@
 <#import "../parts/common.ftlh" as c>
+<#assign host = 'http://localhost:8080/'>
 
 <@c.page>
     <#if actor.isEmpty()>
@@ -9,9 +10,8 @@
         <#else>
             <h3 class="border-success border-bottom"
                 style="padding-bottom: 10px; margin-bottom: 10px; text-align: center">Страница актёра</h3>
-            <div class="card m-2">
-                <h5 class="card-header"><a href="/actor/${actor.get().id}" class="text-success">${actor.get().name}</a>
-                </h5>
+            <div class="card m-3 shadow-sm rounded">
+                <h5 class="card-header"><a href="/actor/${actor.get().id}" class="text-success">${actor.get().name}</a><a href="/actor/delete/${actor.get().id}" class="text-hide icon-attr" style="background-image: url('${host}icons/delete.svg');">delete</a><a href="#" class="text-hide icon-attr" style="background-image: url('${host}icons/edit.svg');">edit</a></h5>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-3 border-success border-right" style="text-align: center">

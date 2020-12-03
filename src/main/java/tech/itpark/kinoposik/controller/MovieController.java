@@ -82,4 +82,12 @@ public class MovieController {
 
         return "movies/searchResult";
     }
+
+    @GetMapping("/delete/{id}")
+    public String deleteMovieById(@PathVariable Long id, Model model) {
+        movieRepository.updateMovieById(id);
+        Iterable<Movie> movies = movieRepository.findAllWithoutDeleted();
+        model.addAttribute("movies", movies);
+        return "movies/all";
+    }
 }

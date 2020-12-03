@@ -15,10 +15,14 @@ public class Actor {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
+
     private String name;
+
     private int age;
+
     @Column(name="image_url")
     private String imageUrl;
+
     private boolean isDeleted;
 
     public Actor(String name, int age, String imageUrl) {

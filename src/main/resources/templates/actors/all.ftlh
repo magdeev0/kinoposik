@@ -3,7 +3,7 @@
 <@c.page>
     <h3 class="border-success border-bottom" style="padding-bottom: 10px; margin-bottom: 10px; text-align: center">Все актёры</h3>
     <#list actors as actor>
-        <div class="card m-2">
+        <div class="card m-3 shadow-sm rounded">
             <h5 class="card-header"><a href="/actor/${actor.id}" class="text-success">${actor.name}</a></h5>
             <div class="card-body">
                 <div class="row">

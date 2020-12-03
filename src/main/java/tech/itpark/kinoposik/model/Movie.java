@@ -16,18 +16,27 @@ public class Movie {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
+
     private String name;
+
     @Column(name = "image_url")
     private String imageUrl;
+
     private int duration;
+
     private int year;
+
     private String country;
+
     @Column(name = "stage_director")
     private String stageDirector;
+
     @ElementCollection
     private List<String> genre;
+
     @ManyToMany
     private List<Actor> actor;
+
     private boolean isDeleted;
 
     public Movie(String name, String imageUrl, int duration, int year, String country, String stageDirector, List<String> genre, List<Actor> actor) {

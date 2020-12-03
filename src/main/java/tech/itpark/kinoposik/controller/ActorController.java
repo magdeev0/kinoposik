@@ -35,7 +35,7 @@ public class ActorController {
     }
 
     @GetMapping("/{id}")
-    public String getActor(@PathVariable Long id,
+    public String getActorById(@PathVariable Long id,
                            Model model
     ) {
         Optional<Actor> actor = actorRepository.findById(id);
@@ -49,6 +49,14 @@ public class ActorController {
         Iterable<Actor> actors = actorRepository.findAllWithoutDeleted();
         model.addAttribute("actors", actors);
 
+        return "actors/all";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteActorById(@PathVariable Long id, Model model) {
+        actorRepository.updateActorById(id);
+        Iterable<Actor> actors = actorRepository.findAllWithoutDeleted();
+        model.addAttribute("actors", actors);
         return "actors/all";
     }
 }
