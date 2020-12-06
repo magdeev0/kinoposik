@@ -13,14 +13,14 @@ import javax.persistence.*;
 @Table(name = "actors")
 public class Actor {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "actors_seq")
     private Long id;
 
     private String name;
 
     private int age;
 
-    @Column(name="image_url")
+    @Column(name = "image_url")
     private String imageUrl;
 
     private boolean isDeleted;

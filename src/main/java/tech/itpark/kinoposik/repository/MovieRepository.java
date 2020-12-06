@@ -13,19 +13,57 @@ import java.util.List;
 
 @Repository
 public interface MovieRepository extends CrudRepository<Movie, Long> {
-    Iterable<Movie> findAllByCountry(String country);
+    @Query("select m from Movie m where m.isDeleted = false and m.country = :country")
+    Iterable<Movie> findAllByCountry(@Param("country") String country);
 
     @Query("select m from Movie m where m.isDeleted = false")
     Iterable<Movie> findAllWithoutDeleted();
 
-    @Query(value = "select movie_id from movie_genre m where m.genre = :movieGenre", nativeQuery = true)
-    List<Long> findMoviesIdByGenre(@Param("movieGenre") String incomingGenre);
+    @Query(value = "select movie_id from movie_genre mg where mg.genre = :genre", nativeQuery = true)
+    List<Long> findMoviesIdByGenre(@Param("genre") String genre);
 
-    @Query(value = "select m from Movie m where m.id in :anyList")
-    Iterable<Movie> findAllById(@Param("anyList") Collection<Long> anyList);
+    @Query(value = "select m from Movie m where m.id in :listOfId and m.isDeleted = false")
+    Iterable<Movie> findAllById(@Param("listOfId") Collection<Long> listOfId);
 
     @Modifying
     @Transactional
     @Query("update Movie m set m.isDeleted = true where m.id = :id")
-    void updateMovieById(@Param("id") Long id);
+    void deleteMovieById(@Param("id") Long id);
+
+    @Modifying
+    @Transactional
+    @Query("update Movie m set m.name = :name, m.imageUrl = :imageUrl, m.year = :year, m.duration = :duration, m.country = :country, m.stageDirector = :stageDirector where m.id = :id")
+    void updateMovieById(@Param("id") Long id,
+                         @Param("name") String name,
+                         @Param("imageUrl") String imageUrl,
+                         @Param("year") int year,
+                         @Param("duration") int duration,
+                         @Param("country") String country,
+                         @Param("stageDirector") String stageDirector);
+
+    @Modifying
+    @Transactional
+    @Query(value = "delete from movie_genre where movie_id = :id", nativeQuery = true)
+    void deleteGenreById(@Param("id") Long id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "insert into movie_genre values (:id, :genre)", nativeQuery = true)
+    void updateGenreById(@Param("id") Long id,
+                         @Param("genre") String genre);
+
+    @Modifying
+    @Transactional
+    @Query(value = "delete from movies_actor where movie_id = :id", nativeQuery = true)
+    void deleteActorById(@Param("id") Long id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "insert into movies_actor values (:movie_id, :actor_id)", nativeQuery = true)
+    void updateActorById(@Param("movie_id") Long movie_id,
+                         @Param("actor_id") Long actor_id);
+
+    @Query(value = "select movie_id from movies_actor ma where ma.actor_id = :id limit :limit", nativeQuery = true)
+    List<Long> findMoviesIdByActor(@Param("id") Long id,
+                                   @Param("limit") int limit);
 }

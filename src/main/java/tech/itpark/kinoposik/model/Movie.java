@@ -14,7 +14,7 @@ import java.util.List;
 @Table(name = "movies")
 public class Movie {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "movie_seq")
     private Long id;
 
     private String name;
@@ -39,7 +39,7 @@ public class Movie {
 
     private boolean isDeleted;
 
-    public Movie(String name, String imageUrl, int duration, int year, String country, String stageDirector, List<String> genre, List<Actor> actor) {
+    public Movie(String name, String imageUrl, int duration, int year, String country, String stageDirector, List<String> genre) {
         this.name = name;
         this.imageUrl = imageUrl;
         this.duration = duration;

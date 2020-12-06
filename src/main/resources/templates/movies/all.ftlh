@@ -12,7 +12,7 @@
                     </div>
                     <div class="col-5">
                         <p class="card-text"><b>Название:</b> ${movie.name}</p>
-                        <p class="card-text"><b>Год:</b> ${movie.year}</p>
+                        <p class="card-text"><b>Год:</b> ${movie.year?string.computer}</p>
                         <p class="card-text"><b>Страна:</b> ${movie.country}</p>
                         <p class="card-text"><a href="/movie/${movie.id}" class="text-success">Полная информация о фильме</a></p>
                     </div>
