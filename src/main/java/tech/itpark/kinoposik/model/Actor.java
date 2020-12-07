@@ -25,6 +25,11 @@ public class Actor {
 
     private boolean isDeleted;
 
+    public Actor(String name) {
+        this.name = name;
+        this.imageUrl = "https://www.hot-motor.ru/body/clothes/images/no_icon.png";
+    }
+
     public Actor(String name, int age, String imageUrl) {
         this.name = name;
         this.age = age;

@@ -18,8 +18,8 @@
                         </div>
                         <div class="col-9">
                             <p><b>Имя:</b> ${actor.get().name}</p>
-                            <p><b>Возраст:</b> ${actor.get().age}</p>
-                            <p><b>Фильмы с актёром:</b> <#list movies as item><a href="/movie/${item.id}" class="text-success">${item.name}</a><#if item_has_next>, </#if></#list> [<a href="/movie/search/actor/${actor.get().name}" class="text-success">ещё</a>]</p>
+                            <p><b>Возраст:</b> <#if actor.get().age = 0>[нет информации]<#else>${actor.get().age}</#if></p>
+                            <p><b>Фильмы с актёром:</b> <#list movies as item><a href="/movie/${item.id}" class="text-success">${item.name}</a><#if item_has_next>, </#if></#list> [<a href="/movie/filter/actor/${actor.get().name}" class="text-success">ещё</a>]</p>
                         </div>
                     </div>
                 </div>

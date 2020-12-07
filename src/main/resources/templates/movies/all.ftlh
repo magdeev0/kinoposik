@@ -2,6 +2,18 @@
 
 <@c.page>
     <h3 class="border-success border-bottom" style="padding-bottom: 10px; margin-bottom: 10px; text-align: center">Все фильмы</h3>
+    <div class="sort-by">
+        <div class="btn-group">
+            <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Сортировка
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item active" href="/movie/filter/order-by/id-desc">по id &darr;</a>
+                <a class="dropdown-item" href="/movie/filter/order-by/name">по названию &duarr;</a>
+                <a class="dropdown-item" href="/movie/filter/order-by/year">по году &duarr;</a>
+            </div>
+        </div>
+    </div>
     <#list movies as movie>
         <div class="card m-3 shadow-sm rounded">
             <h5 class="card-header"><a href="/movie/${movie.id}" class="text-success">${movie.name}</a></h5>

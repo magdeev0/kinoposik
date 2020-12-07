@@ -36,4 +36,7 @@ public interface ActorRepository extends CrudRepository<Actor, Long> {
 
     @Query(value = "select a.id from Actor a where a.name in :actorNames")
     List<Long> findActorIdByName(@Param("actorNames") Collection<String> actorNames);
+
+    @Query(value = "select a from Actor a where a.name in :actorNames")
+    Iterable<Actor> findActorsByName(@Param("actorNames") Collection<String> actorNames);
 }

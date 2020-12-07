@@ -12,7 +12,7 @@
                     </div>
                     <div class="col-5">
                         <p class="card-text"><b>Имя актёра:</b> ${actor.name}</p>
-                        <p class="card-text"><b>Возраст:</b> ${actor.age}</p>
+                        <p class="card-text"><b>Возраст:</b> <#if actor.age = 0>[нет информации]<#else>${actor.age}</#if></p>
                     </div>
                 </div>
             </div>

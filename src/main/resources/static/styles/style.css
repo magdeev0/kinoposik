@@ -1,2 +1,4 @@
-a.dropdown-item:active {background-color: #28a745;}
+a.dropdown-item:active {background-color: #28a745 !important;}
+.active {background-color: #28a745 !important;}
 .icon-attr {float: right; width: 24px; height: 24px; margin-left: 5px;}
+.sort-by {text-align: right; margin: 0 1rem;}

@@ -9,7 +9,6 @@ import tech.itpark.kinoposik.repository.ActorRepository;
 import tech.itpark.kinoposik.repository.MovieRepository;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,21 +42,22 @@ public class MovieController {
         Movie m = new Movie(name, imageUrl, duration, year, country, stageDirector, genre);
         movieRepository.save(m);
         List<String> incorrectActorName = new ArrayList<>();
-        List<String> correctActorName = new ArrayList<>();
         for (String s : actor) {
             if (actorRepository.findActorByName(s).isEmpty()) {
                 incorrectActorName.add(s);
-                continue;
+                Actor a = new Actor(s);
+                actorRepository.save(a);
             }
-            correctActorName.add(s);
         }
-        List<Long> actorsId = actorRepository.findActorIdByName(correctActorName);
-        model.addAttribute("movie_id", m.getId());
-        model.addAttribute("incorrectNames", incorrectActorName);
+        List<Long> actorsId = actorRepository.findActorIdByName(actor);
         for (Long aLong : actorsId) {
             movieRepository.updateActorById(m.getId(), aLong);
         }
         if (incorrectActorName.size() > 0) {
+            Iterable<Actor> incorrectActors = actorRepository.findActorsByName(incorrectActorName);
+            model.addAttribute("movie_id", m.getId());
+            model.addAttribute("incorrectActors", incorrectActors);
+            model.addAttribute("add", "add");
             return "errors/invalidActor";
         }
 
@@ -114,14 +114,24 @@ public class MovieController {
         for (String g : genre) {
             movieRepository.updateGenreById(id, g);
         }
-        List<Long> actorsId = actorRepository.findActorIdByName(actor);
-        for (int i = 0; i < actor.size(); i++) {
-            if (actorRepository.findActorByName(actor.get(i)).isEmpty()) {
-                model.addAttribute("actor", actor.get(i));
-                model.addAttribute("movie_id", id);
-                return "errors/invalidActor";
+        List<String> incorrectActorName = new ArrayList<>();
+        for (String s : actor) {
+            if (actorRepository.findActorByName(s).isEmpty()) {
+                Actor a = new Actor(s);
+                actorRepository.save(a);
+                incorrectActorName.add(s);
             }
-            movieRepository.updateActorById(id, actorsId.get(i));
+        }
+        List<Long> actorsId = actorRepository.findActorIdByName(actor);
+        for (Long actorId : actorsId) {
+            movieRepository.updateActorById(id, actorId);
+        }
+        if (incorrectActorName.size() > 0) {
+            Iterable<Actor> incorrectActors = actorRepository.findActorsByName(incorrectActorName);
+            model.addAttribute("movie_id", id);
+            model.addAttribute("incorrectActors", incorrectActors);
+            model.addAttribute("edit", "edit");
+            return "errors/invalidActor";
         }
         Optional<Movie> movie = movieRepository.findById(id);
         model.addAttribute("movie", movie);
@@ -130,26 +140,26 @@ public class MovieController {
     }
 
 
-    @GetMapping("/search/country/{country}")
+    @GetMapping("/filter/country/{country}")
     public String searchByCountry(@PathVariable String country, Model model) {
         Iterable<Movie> allByCountry = movieRepository.findAllByCountry(country);
         model.addAttribute("movies", allByCountry);
         model.addAttribute("country", country);
 
-        return "movies/searchResult";
+        return "movies/filterResult";
     }
 
-    @GetMapping("/search/genre/{genre}")
+    @GetMapping("/filter/genre/{genre}")
     public String searchByGenre(@PathVariable String genre, Model model) {
         List<Long> moviesIdByGenre = movieRepository.findMoviesIdByGenre(genre);
         Iterable<Movie> allById = movieRepository.findAllById(moviesIdByGenre);
         model.addAttribute("movies", allById);
         model.addAttribute("genre", genre);
 
-        return "movies/searchResult";
+        return "movies/filterResult";
     }
 
-    @GetMapping("/search/actor/{actor}")
+    @GetMapping("/filter/actor/{actor}")
     public String searchByActor(@PathVariable String actor, Model model) {
         Optional<Actor> actorByName = actorRepository.findActorByName(actor);
         if (actorByName.isEmpty()) {
@@ -161,6 +171,43 @@ public class MovieController {
         model.addAttribute("movies", allByActor);
         model.addAttribute("actor", actor);
 
-        return "movies/searchResult";
+        return "movies/filterResult";
+    }
+
+    @GetMapping("/filter/order-by/{value}")
+    public String orderMovieByAttribute(@PathVariable String value, Model model) {
+        model.addAttribute("value", value);
+        if (value.equalsIgnoreCase("id")) {
+            Iterable<Movie> movies = movieRepository.findAllWithoutDeleted();
+            model.addAttribute("movies", movies);
+            return "movies/filterResult";
+        }
+        if (value.equalsIgnoreCase("id-desc")) {
+            Iterable<Movie> movies = movieRepository.orderMovieByIdDesc();
+            model.addAttribute("movies", movies);
+            return "movies/filterResult";
+        }
+        if (value.equalsIgnoreCase("name")) {
+            Iterable<Movie> movies = movieRepository.orderMovieByName();
+            model.addAttribute("movies", movies);
+            return "movies/filterResult";
+        }
+        if (value.equalsIgnoreCase("name-desc")) {
+            Iterable<Movie> movies = movieRepository.orderMovieByNameDesc();
+            model.addAttribute("movies", movies);
+            return "movies/filterResult";
+        }
+        if (value.equalsIgnoreCase("year")) {
+            Iterable<Movie> movies = movieRepository.orderMovieByYear();
+            model.addAttribute("movies", movies);
+            return "movies/filterResult";
+        }
+        if (value.equalsIgnoreCase("year-desc")) {
+            Iterable<Movie> movies = movieRepository.orderMovieByYearDesc();
+            model.addAttribute("movies", movies);
+            return "movies/filterResult";
+        }
+
+        return "movies/filterResult";
     }
 }

@@ -19,11 +19,11 @@ public interface MovieRepository extends CrudRepository<Movie, Long> {
     @Query("select m from Movie m where m.isDeleted = false")
     Iterable<Movie> findAllWithoutDeleted();
 
-    @Query(value = "select movie_id from movie_genre mg where mg.genre = :genre", nativeQuery = true)
-    List<Long> findMoviesIdByGenre(@Param("genre") String genre);
-
     @Query(value = "select m from Movie m where m.id in :listOfId and m.isDeleted = false")
     Iterable<Movie> findAllById(@Param("listOfId") Collection<Long> listOfId);
+
+    @Query(value = "select movie_id from movie_genre mg where mg.genre = :genre", nativeQuery = true)
+    List<Long> findMoviesIdByGenre(@Param("genre") String genre);
 
     @Modifying
     @Transactional
@@ -66,4 +66,19 @@ public interface MovieRepository extends CrudRepository<Movie, Long> {
     @Query(value = "select movie_id from movies_actor ma where ma.actor_id = :id limit :limit", nativeQuery = true)
     List<Long> findMoviesIdByActor(@Param("id") Long id,
                                    @Param("limit") int limit);
+
+    @Query("select m from Movie m where m.isDeleted = false order by m.id desc")
+    Iterable<Movie> orderMovieByIdDesc();
+
+    @Query("select m from Movie m where m.isDeleted = false order by m.name")
+    Iterable<Movie> orderMovieByName();
+
+    @Query("select m from Movie m where m.isDeleted = false order by m.name desc")
+    Iterable<Movie> orderMovieByNameDesc();
+
+    @Query("select m from Movie m where m.isDeleted = false order by m.year")
+    Iterable<Movie> orderMovieByYear();
+
+    @Query("select m from Movie m where m.isDeleted = false order by m.year desc")
+    Iterable<Movie> orderMovieByYearDesc();
 }

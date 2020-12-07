@@ -22,11 +22,11 @@
                             <p><b>Название:</b> ${movie.get().name}</p>
                             <p><b>Год выпуска:</b> ${movie.get().year?string.computer}</p>
                             <p><b>Продолжительность:</b> ${movie.get().duration} <i>мин.</i> / 0${(movie.get().duration - movie.get().duration%60)/60}:<#if movie.get().duration%60 < 10>0</#if>${movie.get().duration%60}</p>
-                            <p><b>Страна:</b> <a href="/movie/search/country/${movie.get().country}" class="text-success">${movie.get().country}</a></p>
+                            <p><b>Страна:</b> <a href="/movie/filter/country/${movie.get().country}" class="text-success">${movie.get().country}</a></p>
                             <p><b>Режиссёр:</b> ${movie.get().stageDirector}</p>
                             <p><b>Жанр:</b>
                                 <#list movie.get().genre as item>
-                                <a href="/movie/search/genre/${item}" class="text-success">${item}</a><#if item_has_next>,</#if>
+                                <a href="/movie/filter/genre/${item}" class="text-success">${item}</a><#if item_has_next>,</#if>
                                 </#list>
                             </p>
                             <p><b>Актёры:</b>
