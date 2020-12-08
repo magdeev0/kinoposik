@@ -3,8 +3,8 @@
 <@c.page>
     <#if actor.isEmpty()>
         <div style="text-align: center;">Ошибка. Актёр с указанным id не найден.</div>
-    <#else>
-        <#if actor.get().deleted>
+    <#--<#else>-->
+        <#--<#if actor.get().deleted>-->
             <div style="text-align: center">Ошибка. Страница актёра удалена.</div>
         <#else>
             <h3 class="border-success border-bottom"
@@ -25,5 +25,7 @@
                 </div>
             </div>
         </#if>
+<#--
     </#if>
+-->
 </@c.page>

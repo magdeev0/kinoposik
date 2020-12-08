@@ -23,7 +23,7 @@ public class Actor {
     @Column(name = "image_url")
     private String imageUrl;
 
-    private boolean isDeleted;
+    //private boolean isDeleted;
 
     public Actor(String name) {
         this.name = name;

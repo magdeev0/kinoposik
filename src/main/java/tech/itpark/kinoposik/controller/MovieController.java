@@ -80,13 +80,13 @@ public class MovieController {
         return "movies/all";
     }
 
-    @GetMapping("/delete/{id}")
+    /*@GetMapping("/delete/{id}")
     public String deleteMovieById(@PathVariable Long id, Model model) {
         movieRepository.deleteMovieById(id);
         Iterable<Movie> movies = movieRepository.findAllWithoutDeleted();
         model.addAttribute("movies", movies);
         return "movies/all";
-    }
+    }*/
 
     @GetMapping("/edit/{id}")
     public String editMovie(@PathVariable Long id, Model model) {
@@ -174,7 +174,7 @@ public class MovieController {
         return "movies/filterResult";
     }
 
-    @GetMapping("/filter/order-by/{value}")
+    /*@GetMapping("/filter/order-by/{value}")
     public String orderMovieByAttribute(@PathVariable String value, Model model) {
         model.addAttribute("value", value);
         if (value.equalsIgnoreCase("id")) {
@@ -209,5 +209,5 @@ public class MovieController {
         }
 
         return "movies/filterResult";
-    }
+    }*/
 }

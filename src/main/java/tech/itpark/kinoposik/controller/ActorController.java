@@ -58,13 +58,13 @@ public class ActorController {
         return "actors/all";
     }
 
-    @GetMapping("/delete/{id}")
+    /*@GetMapping("/delete/{id}")
     public String deleteActorById(@PathVariable Long id, Model model) {
         actorRepository.deleteActorById(id);
         Iterable<Actor> actors = actorRepository.findAllWithoutDeleted();
         model.addAttribute("actors", actors);
         return "actors/all";
-    }
+    }*/
 
     @GetMapping("/edit/{id}")
     public String editActor(@PathVariable Long id, Model model) {
