@@ -7,7 +7,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import tech.itpark.kinoposik.model.Actor;
-import tech.itpark.kinoposik.model.Movie;
 
 import java.util.Collection;
 import java.util.List;
