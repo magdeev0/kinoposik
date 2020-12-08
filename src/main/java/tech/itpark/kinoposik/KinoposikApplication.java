@@ -16,11 +16,8 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
 @SpringBootApplication
 public class KinoposikApplication {
-    private final SessionFactory sessionFactory;
-
-    public KinoposikApplication(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
+    @Autowired
+    private SessionFactory sessionFactory;
 
     public static void main(String[] args) {
         SpringApplication.run(KinoposikApplication.class, args);
