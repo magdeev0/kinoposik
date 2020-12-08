@@ -10,9 +10,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
-/*@EntityScan("tech.itpark.kinoposik.model")
-@ComponentScan("tech.itpark.kinoposik.controller")
-@EnableJpaRepositories("tech.itpark.kinoposik.repository")*/
+@EntityScan("tech.itpark.kinoposik.model")
+/*@ComponentScan("tech.itpark.kinoposik.controller")*/
+@EnableJpaRepositories("tech.itpark.kinoposik.repository")
 
 @SpringBootApplication
 public class KinoposikApplication {
