@@ -37,7 +37,8 @@ public class Movie {
     @ManyToMany
     private List<Actor> actor;
 
-    //private boolean isDeleted;
+    @Column(name = "is_deleted")
+    private boolean isDeleted;
 
     public Movie(String name, String imageUrl, int duration, int year, String country, String stageDirector, List<String> genre) {
         this.name = name;

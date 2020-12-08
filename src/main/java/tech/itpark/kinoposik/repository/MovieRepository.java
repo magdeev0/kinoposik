@@ -1,6 +1,5 @@
 package tech.itpark.kinoposik.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -13,23 +12,23 @@ import java.util.Collection;
 import java.util.List;
 
 @Repository
-public interface MovieRepository extends JpaRepository<Movie, Long> {
-    @Query("select m from Movie m where m.country = :country")// m.isDeleted = false and
+public interface MovieRepository extends CrudRepository<Movie, Long> {
+    @Query("select m from Movie m where m.isDeleted = false and m.country = :country")
     Iterable<Movie> findAllByCountry(@Param("country") String country);
 
-    @Query("select m from Movie m")// where m.isDeleted = false
+    @Query("select m from Movie m where m.isDeleted = false")
     Iterable<Movie> findAllWithoutDeleted();
 
     @Query(value = "select m from Movie m where m.id in :listOfId")
     Iterable<Movie> findAllById(@Param("listOfId") Collection<Long> listOfId);
 
-    @Query(value = "select movie_id from movie_genre mg where mg.genre = :genre", nativeQuery = true)
+    @Query(value = "select Movie_id from movie_genre mg where mg.genre = :genre", nativeQuery = true)
     List<Long> findMoviesIdByGenre(@Param("genre") String genre);
 
-    /*@Modifying
+    @Modifying
     @Transactional
     @Query("update Movie m set m.isDeleted = true where m.id = :id")
-    void deleteMovieById(@Param("id") Long id);*/
+    void deleteMovieById(@Param("id") Long id);
 
     @Modifying
     @Transactional
@@ -44,7 +43,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 
     @Modifying
     @Transactional
-    @Query(value = "delete from movie_genre where movie_id = :id", nativeQuery = true)
+    @Query(value = "delete from movie_genre where Movie_id = :id", nativeQuery = true)
     void deleteGenreById(@Param("id") Long id);
 
     @Modifying
@@ -55,7 +54,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 
     @Modifying
     @Transactional
-    @Query(value = "delete from movies_actors where movie_id = :id", nativeQuery = true)
+    @Query(value = "delete from movies_actors where Movie_id = :id", nativeQuery = true)
     void deleteActorById(@Param("id") Long id);
 
     @Modifying
@@ -64,11 +63,11 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     void updateActorById(@Param("movie_id") Long movie_id,
                          @Param("actor_id") Long actor_id);
 
-    @Query(value = "select movie_id from movies_actors ma where ma.actor_id = :id limit :limit", nativeQuery = true)
+    @Query(value = "select Movie_id from movies_actors ma where ma.actor_id = :id limit :limit", nativeQuery = true)
     List<Long> findMoviesIdByActor(@Param("id") Long id,
                                    @Param("limit") int limit);
 
-    /*@Query("select m from Movie m where m.isDeleted = false order by m.id desc")
+    @Query("select m from Movie m where m.isDeleted = false order by m.id desc")
     Iterable<Movie> orderMovieByIdDesc();
 
     @Query("select m from Movie m where m.isDeleted = false order by m.name")
@@ -81,5 +80,5 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     Iterable<Movie> orderMovieByYear();
 
     @Query("select m from Movie m where m.isDeleted = false order by m.year desc")
-    Iterable<Movie> orderMovieByYearDesc();*/
+    Iterable<Movie> orderMovieByYearDesc();
 }

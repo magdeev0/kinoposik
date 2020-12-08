@@ -43,9 +43,11 @@ public class ActorController {
         int limit = 5;
         Optional<Actor> actor = actorRepository.findById(id);
         List<Long> moviesId = movieRepository.findMoviesIdByActor(id, limit);
-        Iterable<Movie> moviesWithActor = movieRepository.findAllById(moviesId);
+        if (moviesId.size() > 0) {
+            Iterable<Movie> moviesWithActor = movieRepository.findAllById(moviesId);
+            model.addAttribute("movies", moviesWithActor);
+        }
         model.addAttribute("actor", actor);
-        model.addAttribute("movies", moviesWithActor);
 
         return "actors/actor";
     }
@@ -58,13 +60,13 @@ public class ActorController {
         return "actors/all";
     }
 
-    /*@GetMapping("/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteActorById(@PathVariable Long id, Model model) {
         actorRepository.deleteActorById(id);
         Iterable<Actor> actors = actorRepository.findAllWithoutDeleted();
         model.addAttribute("actors", actors);
         return "actors/all";
-    }*/
+    }
 
     @GetMapping("/edit/{id}")
     public String editActor(@PathVariable Long id, Model model) {

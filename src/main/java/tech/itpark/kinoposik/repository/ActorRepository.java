@@ -17,13 +17,13 @@ public interface ActorRepository extends CrudRepository<Actor, Long> {
     @Query("select a from Actor a where a.name = :name")
     Optional<Actor> findActorByName(@Param("name") String name);
 
-    @Query("select a from Actor a") // where a.isDeleted = false
+    @Query("select a from Actor a where a.isDeleted = false")
     Iterable<Actor> findAllWithoutDeleted();
 
-    /*@Modifying
+    @Modifying
     @Transactional
     @Query("update Actor a set a.isDeleted = true where a.id = :id")
-    void deleteActorById(@Param("id") Long id);*/
+    void deleteActorById(@Param("id") Long id);
 
     @Modifying
     @Transactional

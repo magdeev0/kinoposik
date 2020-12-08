@@ -19,13 +19,6 @@ public class KinoposikApplication {
     @Autowired
     private SessionFactory sessionFactory;
 
-    /*@Bean(name="entityManagerFactory")
-    public LocalSessionFactoryBean sessionFactory() {
-        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-
-        return sessionFactory;
-    }*/
-
     public static void main(String[] args) {
         SpringApplication.run(KinoposikApplication.class, args);
     }
