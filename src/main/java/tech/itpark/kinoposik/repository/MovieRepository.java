@@ -1,5 +1,6 @@
 package tech.itpark.kinoposik.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -12,14 +13,14 @@ import java.util.Collection;
 import java.util.List;
 
 @Repository
-public interface MovieRepository extends CrudRepository<Movie, Long> {
+public interface MovieRepository extends JpaRepository<Movie, Long> {
     @Query("select m from Movie m where m.isDeleted = false and m.country = :country")
     Iterable<Movie> findAllByCountry(@Param("country") String country);
 
     @Query("select m from Movie m where m.isDeleted = false")
     Iterable<Movie> findAllWithoutDeleted();
 
-    @Query(value = "select m from Movie m where m.id in :listOfId and m.isDeleted = false")
+    @Query(value = "select m from Movie m where m.id in :listOfId")
     Iterable<Movie> findAllById(@Param("listOfId") Collection<Long> listOfId);
 
     @Query(value = "select movie_id from movie_genre mg where mg.genre = :genre", nativeQuery = true)
