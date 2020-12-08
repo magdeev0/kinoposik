@@ -14,7 +14,8 @@ import java.util.List;
 @Table(name = "movies")
 public class Movie {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO/*, generator = "movie_seq"*/)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "movie_generator")
+    @SequenceGenerator(name="movie_generator", sequenceName = "movie_seq")
     private Long id;
 
     private String name;
