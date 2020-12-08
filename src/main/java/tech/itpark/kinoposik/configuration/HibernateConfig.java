@@ -1,6 +1,9 @@
 package tech.itpark.kinoposik.configuration;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -24,15 +27,15 @@ public class HibernateConfig {
         return sessionFactory;
     }
 
+
+    @Value("${spring.datasource.url}")
+    private String dbUrl;
+
     @Bean
     public DataSource dataSource() {
-        BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/kinoposik_db?useUnicode=true&serverTimezone=UTC&useSSL=true&verifyServerCertificate=false");
-        dataSource.setUsername("admin");
-        dataSource.setPassword("password");
-
-        return dataSource;
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl(dbUrl);
+        return new HikariDataSource(config);
     }
 
     /*@Bean(name="transactionManager")
