@@ -9,6 +9,7 @@ import tech.itpark.kinoposik.repository.ActorRepository;
 import tech.itpark.kinoposik.repository.MovieRepository;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Controller
@@ -88,5 +89,26 @@ public class ActorController {
         model.addAttribute("actor", actor);
 
         return "redirect:/actor/" + id;
+    }
+
+    @GetMapping("/search")
+    public String searchActor() {
+        return "actors/search";
+    }
+
+    @PostMapping("/search")
+    public String SearchResult(@RequestParam String name, Model model) {
+        Iterable<Actor> actorByName = actorRepository.findAllWithoutDeleted();
+        String incomingName = name.toLowerCase(Locale.ROOT).replaceAll("\\s","");
+        for (Actor actor : actorByName) {
+            String actorName = actor.getName().toLowerCase(Locale.ROOT).replaceAll("\\s","");
+            if (actorName.contains(incomingName)) {
+                model.addAttribute("actor", actor);
+                return "redirect:/actor/" + actor.getId();
+            }
+        }
+        model.addAttribute("searchedName", name);
+        model.addAttribute("searchError", true);
+        return "errors/invalidActor";
     }
 }

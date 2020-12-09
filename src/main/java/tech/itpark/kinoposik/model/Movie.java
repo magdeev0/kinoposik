@@ -15,7 +15,7 @@ import java.util.List;
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "movie_generator")
-    @SequenceGenerator(name="movie_generator", sequenceName = "movie_seq")
+    @SequenceGenerator(name="movie_generator", initialValue = 5, sequenceName = "movie_seq")
     private Long id;
 
     private String name;
