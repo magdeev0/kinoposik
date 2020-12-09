@@ -22,3 +22,4 @@ INSERT INTO movies_actors(Movie_id, actor_id) VALUE (1, 3);
 INSERT INTO movies_actors(Movie_id, actor_id) VALUE (2, 1);
 INSERT INTO movies_actors(Movie_id, actor_id) VALUE (2, 3);
 INSERT INTO movies_actors(Movie_id, actor_id) VALUE (3, 1);
+INSERT INTO movies_actors(Movie_id, actor_id) VALUE (4, 3);
