@@ -14,11 +14,11 @@ import java.util.Optional;
 
 @Repository
 public interface ActorRepository extends CrudRepository<Actor, Long> {
-    @Query("select a from Actor a where a.name = :name")
-    Optional<Actor> findActorByName(@Param("name") String name);
+    @Query
+    Optional<Actor> findActorByName(String name);
 
-    @Query("select a from Actor a where a.isDeleted = false")
-    Iterable<Actor> findAllWithoutDeleted();
+    @Query
+    Iterable<Actor> findAllByIsDeletedFalse();
 
     @Modifying
     @Transactional
@@ -38,4 +38,7 @@ public interface ActorRepository extends CrudRepository<Actor, Long> {
 
     @Query(value = "select a from Actor a where a.name in :actorNames")
     Iterable<Actor> findActorsByName(@Param("actorNames") Collection<String> actorNames);
+
+    @Query(value = "select a from Actor a where lower(a.name) like %:name%")
+    Iterable<Actor> searchActorsByName(@Param("name") String name);
 }

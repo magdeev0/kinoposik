@@ -19,7 +19,7 @@
                     Поиск
                 </a>
                 <div class="dropdown-menu" aria-labelledby="searchDropdown">
-                    <a class="dropdown-item" href="/movies/search">Поиск по фильмам</a>
+                    <a class="dropdown-item" href="/movie/search">Поиск по фильмам</a>
                     <a class="dropdown-item" href="/actor/search">Поиск по актёрам</a>
                 </div>
             </li>

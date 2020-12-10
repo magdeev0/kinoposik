@@ -1,26 +1,22 @@
 package tech.itpark.kinoposik.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import tech.itpark.kinoposik.model.Movie;
 
-import java.util.Collection;
 import java.util.List;
 
 @Repository
-public interface MovieRepository extends CrudRepository<Movie, Long> {
-    @Query("select m from Movie m where m.isDeleted = false and m.country = :country")
-    Iterable<Movie> findAllByCountry(@Param("country") String country);
+public interface MovieRepository extends JpaRepository<Movie, Long> {
+    @Query
+    Iterable<Movie> findAllByIsDeletedFalseAndCountry(String country);
 
-    @Query("select m from Movie m where m.isDeleted = false")
-    Iterable<Movie> findAllWithoutDeleted();
-
-    @Query(value = "select m from Movie m where m.id in :listOfId")
-    Iterable<Movie> findAllById(@Param("listOfId") Collection<Long> listOfId);
+    @Query
+    Iterable<Movie> findAllByIsDeletedFalse();
 
     @Query(value = "select Movie_id from movie_genre mg where mg.genre = :genre", nativeQuery = true)
     List<Long> findMoviesIdByGenre(@Param("genre") String genre);
@@ -67,18 +63,21 @@ public interface MovieRepository extends CrudRepository<Movie, Long> {
     List<Long> findMoviesIdByActor(@Param("id") Long id,
                                    @Param("limit") int limit);
 
-    @Query("select m from Movie m where m.isDeleted = false order by m.id desc")
-    Iterable<Movie> orderMovieByIdDesc();
+    @Query
+    Iterable<Movie> findAllByIsDeletedFalseOrderByIdDesc();
 
-    @Query("select m from Movie m where m.isDeleted = false order by m.name")
-    Iterable<Movie> orderMovieByName();
+    @Query
+    Iterable<Movie> findAllByIsDeletedFalseOrderByName();
 
-    @Query("select m from Movie m where m.isDeleted = false order by m.name desc")
-    Iterable<Movie> orderMovieByNameDesc();
+    @Query
+    Iterable<Movie> findAllByIsDeletedFalseOrderByNameDesc();
 
-    @Query("select m from Movie m where m.isDeleted = false order by m.year")
-    Iterable<Movie> orderMovieByYear();
+    @Query
+    Iterable<Movie> findAllByIsDeletedFalseOrderByYear();
 
-    @Query("select m from Movie m where m.isDeleted = false order by m.year desc")
-    Iterable<Movie> orderMovieByYearDesc();
+    @Query
+    Iterable<Movie> findAllByIsDeletedFalseOrderByYearDesc();
+
+    @Query(value = "select m from Movie m where m.name like %:name%")
+    Iterable<Movie> searchMoviesByName(@Param("name") String name);
 }

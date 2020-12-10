@@ -6,8 +6,6 @@
     <#if incorrectActors??>
         <a href="/movie/${movie_id}"
            class="text-success">Фильм <#if add??>добавлен<#elseif edit??>отредактирован</#if></a>, однако некоторые указанные актёры не были найдены и были созданы автоматически:
-        <#list incorrectActors as item>
-            <b><a href="/actor/${item.id}" class="text-success">${item.name}</a></b><#if item_has_next>, </#if>
-        </#list>.
+        <#list incorrectActors as item><b><a href="/actor/${item.id}" class="text-success">${item.name}</a></b><#if item_has_next>, </#if></#list>.
     </#if>
 </@c.page>

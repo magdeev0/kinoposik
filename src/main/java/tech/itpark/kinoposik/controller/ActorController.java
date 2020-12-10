@@ -54,8 +54,8 @@ public class ActorController {
     }
 
     @GetMapping("/all")
-    public String getAll(Model model) {
-        Iterable<Actor> actors = actorRepository.findAllWithoutDeleted();
+    public String getAllActors(Model model) {
+        Iterable<Actor> actors = actorRepository.findAllByIsDeletedFalse();
         model.addAttribute("actors", actors);
 
         return "actors/all";
@@ -64,7 +64,7 @@ public class ActorController {
     @GetMapping("/delete/{id}")
     public String deleteActorById(@PathVariable Long id, Model model) {
         actorRepository.deleteActorById(id);
-        Iterable<Actor> actors = actorRepository.findAllWithoutDeleted();
+        Iterable<Actor> actors = actorRepository.findAllByIsDeletedFalse();
         model.addAttribute("actors", actors);
         return "actors/all";
     }
@@ -92,23 +92,21 @@ public class ActorController {
     }
 
     @GetMapping("/search")
-    public String searchActor() {
+    public String searchActorByName() {
         return "actors/search";
     }
 
     @PostMapping("/search")
-    public String SearchResult(@RequestParam String name, Model model) {
-        Iterable<Actor> actorByName = actorRepository.findAllWithoutDeleted();
-        String incomingName = name.toLowerCase(Locale.ROOT).replaceAll("\\s","");
-        for (Actor actor : actorByName) {
-            String actorName = actor.getName().toLowerCase(Locale.ROOT).replaceAll("\\s","");
-            if (actorName.contains(incomingName)) {
-                model.addAttribute("actor", actor);
-                return "redirect:/actor/" + actor.getId();
-            }
-        }
+    public String searchResultByName(@RequestParam String name, Model model) {
+        String toLower = name.toLowerCase(Locale.ROOT);
+        Iterable<Actor> actorsByName = actorRepository.searchActorsByName(toLower);
         model.addAttribute("searchedName", name);
-        model.addAttribute("searchError", true);
-        return "errors/invalidActor";
+        if (!actorsByName.iterator().hasNext()) {
+            model.addAttribute("searchError", true);
+            return "actors/searchResult";
+        }
+        model.addAttribute("actors", actorsByName);
+
+        return "actors/searchResult";
     }
 }
