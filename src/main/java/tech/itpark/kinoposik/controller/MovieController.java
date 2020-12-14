@@ -1,7 +1,6 @@
 package tech.itpark.kinoposik.controller;
 
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -9,13 +8,11 @@ import tech.itpark.kinoposik.model.Actor;
 import tech.itpark.kinoposik.model.Movie;
 import tech.itpark.kinoposik.repository.ActorRepository;
 import tech.itpark.kinoposik.repository.MovieRepository;
+import tech.itpark.kinoposik.util.MovieSearchCriteria;
+import tech.itpark.kinoposik.util.MovieSpecification;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.endsWith;
-import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.startsWith;
+import java.time.Year;
+import java.util.*;
 
 @Controller
 @RequestMapping("/movie")
@@ -36,15 +33,24 @@ public class MovieController {
     @PostMapping("/add")
     public String addMovie(@RequestParam String name,
                            @RequestParam String imageUrl,
-                           @RequestParam int duration,
-                           @RequestParam int year,
+                           @RequestParam String duration,
+                           @RequestParam String year,
                            @RequestParam String country,
                            @RequestParam String stageDirector,
                            @RequestParam List<String> genre,
                            @RequestParam List<String> actor,
                            Model model
     ) {
-        Movie m = new Movie(name, imageUrl, duration, year, country, stageDirector, genre);
+        int parsedDuration;
+        int parsedYear;
+        try {
+            parsedDuration = Integer.parseInt(duration);
+            parsedYear = Integer.parseInt(year);
+        } catch (NumberFormatException e) {
+            model.addAttribute("error", e.getMessage().substring(19, e.getMessage().length()-1));
+            return "errors/invalidInput";
+        }
+        Movie m = new Movie(name, imageUrl, parsedDuration, parsedYear, country, stageDirector, genre);
         movieRepository.save(m);
         List<String> incorrectActorName = new ArrayList<>();
         for (String s : actor) {
@@ -89,7 +95,7 @@ public class MovieController {
         movieRepository.deleteMovieById(id);
         Iterable<Movie> movies = movieRepository.findAllByIsDeletedFalse();
         model.addAttribute("movies", movies);
-        return "movies/all";
+        return "redirect:/movie/all";
     }
 
     @GetMapping("/edit/{id}")
@@ -104,15 +110,24 @@ public class MovieController {
     public String editMovie(@PathVariable Long id,
                             @RequestParam("name") String name,
                             @RequestParam("imageUrl") String imageUrl,
-                            @RequestParam("year") int year,
-                            @RequestParam("duration") int duration,
+                            @RequestParam("year") String year,
+                            @RequestParam("duration") String duration,
                             @RequestParam("country") String country,
                             @RequestParam("stageDirector") String stageDirector,
                             @RequestParam("genre") List<String> genre,
                             @RequestParam("actor") List<String> actor,
                             Model model
     ) {
-        movieRepository.updateMovieById(id, name, imageUrl, year, duration, country, stageDirector);
+        int parsedDuration;
+        int parsedYear;
+        try {
+            parsedDuration = Integer.parseInt(duration);
+            parsedYear = Integer.parseInt(year);
+        } catch (NumberFormatException e) {
+            model.addAttribute("error", e.getMessage().substring(19, e.getMessage().length()-1));
+            return "errors/invalidInput";
+        }
+        movieRepository.updateMovieById(id, name, imageUrl, parsedYear, parsedDuration, country, stageDirector);
         movieRepository.deleteGenreById(id);
         movieRepository.deleteActorById(id);
         for (String g : genre) {
@@ -222,26 +237,41 @@ public class MovieController {
     }
 
     @PostMapping("/search")
-    public String searchResultByName(@RequestParam(required = false) String name,
-                                     @RequestParam(required = false) int yearStart,
-                                     @RequestParam(required = false) int yearEnd,
-                                     @RequestParam(required = false) String country,
-                                     @RequestParam(required = false) List<String> genre,
-                                     Model model
+    public String searchResultByParameters(@RequestParam(required = false) String name,
+                                           @RequestParam(required = false) String yearStart,
+                                           @RequestParam(required = false) String yearEnd,
+                                           @RequestParam(required = false) String country,
+                                           Model model
     ) {
+        int parsedYearStart = 1900;
+        int parsedYearEnd = Year.now().getValue()+3;
+        if (!yearStart.isBlank()) {
+            try {
+                parsedYearStart = Integer.parseInt(yearStart);
+            } catch (NumberFormatException e) {
+                model.addAttribute("error", e.getMessage().substring(19, e.getMessage().length()-1));
+                return "/errors/invalidInput";
+            }
+        }
+        if (!yearEnd.isBlank()) {
+            try {
+            parsedYearEnd = Integer.parseInt(yearEnd);
+            } catch (NumberFormatException e) {
+                model.addAttribute("error", e.getMessage().substring(19, e.getMessage().length()-1));
+                return "/errors/invalidInput";
+            }
+        }
+        MovieSpecification spec1 =
+                new MovieSpecification(new MovieSearchCriteria("name", ":", name));
+        MovieSpecification spec2 =
+                new MovieSpecification(new MovieSearchCriteria("year", ">", parsedYearStart));
+        MovieSpecification spec3 =
+                new MovieSpecification(new MovieSearchCriteria("year", "<", parsedYearEnd));
+        MovieSpecification spec4 =
+                new MovieSpecification(new MovieSearchCriteria("country", ":", country));
 
+        Iterable<Movie> movies = movieRepository.findAll(Specification.where(spec1).and(spec2).and(spec3).and(spec4));
+        model.addAttribute("movies", movies);
         return "movies/searchResult";
     }
-
-    @GetMapping("/test")
-    public String test(Model model) {
-
-        ExampleMatcher matcher = ExampleMatcher.matching()
-                .withMatcher("name", endsWith());
-
-
-        //model.addAttribute("movies", movies);
-        return "movies/all";
-    }
-
 }

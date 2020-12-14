@@ -49,6 +49,5 @@ public class Movie {
         this.country = country;
         this.stageDirector = stageDirector;
         this.genre = genre;
-        this.actor = actor;
     }
 }

@@ -66,7 +66,7 @@ public class ActorController {
         actorRepository.deleteActorById(id);
         Iterable<Actor> actors = actorRepository.findAllByIsDeletedFalse();
         model.addAttribute("actors", actors);
-        return "actors/all";
+        return "redirect:/actor/all";
     }
 
     @GetMapping("/edit/{id}")

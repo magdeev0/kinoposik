@@ -15,9 +15,9 @@
                 </div>
                 <div class="form-group">
                     <label for="inputAge">Возраст актёра</label>
-                    <input type="text" name="age" class="form-control" id="inputAge" placeholder="Введите возраст" value="${actor.get().age}" required>
+                    <input type="text" name="age" class="form-control" id="inputAge" placeholder="Введите возраст" value="${actor.get().age}" pattern="^0*\d{1,2}" required>
                     <div class="invalid-feedback">
-                        Необходимо указать возраст актёра.
+                        Необходимо указать возраст актёра (разрешены только цифры).
                     </div>
                 </div>
                 <div class="form-group">

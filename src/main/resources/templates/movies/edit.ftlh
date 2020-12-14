@@ -24,19 +24,19 @@
                 <div class="form-group">
                     <label for="inputDuration">Продолжительность фильма</label>
                     <input type="text" name="duration" class="form-control" id="inputDuration"
-                           placeholder="Введите продолжительность" value="${movie.get().duration}" required>
+                           placeholder="Введите продолжительность" value="${movie.get().duration}" pattern="^0*\d{1,3}" required>
                     <small id="durationHelp" class="form-text text-muted">Продолжительность фильма необходимо указать в
                         минутах</small>
                     <div class="invalid-feedback">
-                        Необходимо ввести продолжительность фильма.
+                        Необходимо ввести продолжительность фильма (разрешены только цифры).
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputYear">Год выпуска фильма</label>
-                    <input type="text" name="year" class="form-control" id="inputYear" placeholder="Введите год выпуска" value="${movie.get().year?string.computer}"
+                    <input type="text" name="year" class="form-control" id="inputYear" placeholder="Введите год выпуска" value="${movie.get().year?string.computer}" pattern="^0*\d{4}"
                            required>
                     <div class="invalid-feedback">
-                        Необходимо ввести год выпуска фильма.
+                        Необходимо ввести год выпуска фильма (разрешены только цифры).
                     </div>
                 </div>
                 <div class="form-group">

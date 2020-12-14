@@ -1,6 +1,7 @@
 package tech.itpark.kinoposik.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,7 +12,7 @@ import tech.itpark.kinoposik.model.Movie;
 import java.util.List;
 
 @Repository
-public interface MovieRepository extends JpaRepository<Movie, Long> {
+public interface MovieRepository extends JpaRepository<Movie, Long>, JpaSpecificationExecutor<Movie> {
     @Query
     Iterable<Movie> findAllByIsDeletedFalseAndCountry(String country);
 
@@ -77,7 +78,4 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 
     @Query
     Iterable<Movie> findAllByIsDeletedFalseOrderByYearDesc();
-
-    @Query(value = "select m from Movie m where m.name like %:name%")
-    Iterable<Movie> searchMoviesByName(@Param("name") String name);
 }
