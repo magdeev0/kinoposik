@@ -50,7 +50,7 @@ public class HibernateConfig {
         hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "create");
         hibernateProperties.setProperty("hibernate.hbm2ddl.import_files", "data.sql");
         hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
-        hibernateProperties.setProperty("hibernate.temp.use_jdbc_metadata_defaults", "false");
+        hibernateProperties.setProperty("hibernate.jdbc.lob.non_contextual_creation", "true");
 
         return hibernateProperties;
     }

@@ -17,8 +17,10 @@ public class Actor {
     @SequenceGenerator(name="actor_generator", initialValue = 4, sequenceName = "actor_seq")
     private Long id;
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "age")
     private int age;
 
     @Column(name = "image_url")
