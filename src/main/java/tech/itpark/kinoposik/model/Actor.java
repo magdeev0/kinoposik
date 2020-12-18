@@ -29,7 +29,7 @@ public class Actor {
 
     public Actor(String name) {
         this.name = name;
-        this.imageUrl = "https://www.hot-motor.ru/body/clothes/images/no_icon.png";
+        this.imageUrl = "/images/no_image.png";
     }
 
     public Actor(String name, int age, String imageUrl) {

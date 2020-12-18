@@ -2,13 +2,14 @@
 <#assign host = 'http://localhost:8080/'>
 <@c.page>
     <#if actor.isEmpty()>
-        <div style="text-align: center;">Ошибка. Актёр с указанным id не найден.</div>
+        <h5 class="border-success border-bottom" style="padding-bottom: 10px; margin-bottom: 10px; text-align: center">Ошибка</h5>
+        Актёр с указанным id не найден.
     <#else>
         <#if actor.get().deleted>
-            <div style="text-align: center">Ошибка. Страница актёра удалена.</div>
+            <h5 class="border-success border-bottom" style="padding-bottom: 10px; margin-bottom: 10px; text-align: center">Ошибка</h5>
+            Актёр с указанным id удален.
         <#else>
-            <h3 class="border-success border-bottom"
-                style="padding-bottom: 10px; margin-bottom: 10px; text-align: center">Страница актёра</h3>
+            <h3 class="border-success border-bottom" style="padding-bottom: 10px; margin-bottom: 10px; text-align: center">Страница актёра</h3>
             <div class="card m-3 shadow-sm rounded">
                 <h5 class="card-header"><a href="/actor/${actor.get().id}" class="text-success">${actor.get().name}</a><a href="/actor/delete/${actor.get().id}" class="text-hide icon-attr" style="background-image: url('${host}icons/delete.svg');">delete</a><a href="/actor/edit/${actor.get().id}" class="text-hide icon-attr" style="background-image: url('${host}icons/edit.svg');">edit</a></h5>
                 <div class="card-body">
