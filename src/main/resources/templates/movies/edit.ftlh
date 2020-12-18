@@ -18,7 +18,7 @@
                     </div>
                     <div class="form-group">
                         <label for="inputImageUrl">Ссылка на постер</label>
-                        <input type="text" name="imageUrl" class="form-control" id="inputImageUrl" placeholder="Укажите ссылку на постер" value="${movie.get().imageUrl}" required>
+                        <input type="text" name="imageUrl" class="form-control" id="inputImageUrl" placeholder="Укажите ссылку на постер" value="${movie.get().imageUrl}" pattern="(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)" required>
                         <div class="invalid-feedback">
                             Необходимо указать ссылку на постер фильма.
                         </div>

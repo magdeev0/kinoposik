@@ -8,7 +8,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-3 border-success border-right" style="text-align: center">
-                        <a href="/actor/${actor.id}"><img src="${actor.imageUrl}" alt="${actor.name}" title="${actor.name}" style="max-height: 100px"></a>
+                        <a href="/actor/${actor.id}"><img src="${actor.imageUrl}" alt="${actor.name}" title="${actor.name}" style="max-height: 150px"></a>
                     </div>
                     <div class="col-5">
                         <p class="card-text"><b>Имя актёра:</b> ${actor.name}</p>

@@ -10,6 +10,12 @@
             Актёр с указанным id удален.
         <#else>
             <h3 class="border-success border-bottom" style="padding-bottom: 10px; margin-bottom: 10px; text-align: center">Страница актёра</h3>
+            <#if actor.get().age = 0 || actor.get().imageUrl = "/images/no_image.png">
+            <div class="alert alert-warning m-3" role="alert">
+                <h4 class="alert-heading">Необходимо редактирование</h4>
+                <span>Некоторая информация об актёре неполная и подлежит <a href="/actor/edit/${actor.get().id}" class="alert-link">редактированию</a>.</span>
+            </div>
+            </#if>
             <div class="card m-3 shadow-sm rounded">
                 <h5 class="card-header"><a href="/actor/${actor.get().id}" class="text-success">${actor.get().name}</a><a href="/actor/delete/${actor.get().id}" class="text-hide icon-attr" style="background-image: url('${host}icons/delete.svg');">delete</a><a href="/actor/edit/${actor.get().id}" class="text-hide icon-attr" style="background-image: url('${host}icons/edit.svg');">edit</a></h5>
                 <div class="card-body">

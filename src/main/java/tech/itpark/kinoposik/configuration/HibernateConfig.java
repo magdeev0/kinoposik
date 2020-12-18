@@ -3,6 +3,8 @@ package tech.itpark.kinoposik.configuration;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.hibernate.SessionFactory;
+import org.hibernate.ejb.HibernateEntityManagerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -12,12 +14,11 @@ import java.util.Properties;
 
 @Configuration
 public class HibernateConfig {
-
     @Bean(name = "entityManagerFactory")
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan("tech.itpark.kinoposik");
+        sessionFactory.setPackagesToScan("tech.itpark.kinoposik.model");
         sessionFactory.setHibernateProperties(hibernateProperties());
 
         return sessionFactory;
@@ -46,11 +47,9 @@ public class HibernateConfig {
 
     private final Properties hibernateProperties() {
         Properties hibernateProperties = new Properties();
-        hibernateProperties.setProperty(
-                "hibernate.hbm2ddl.auto", "create");
+        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "create");
         hibernateProperties.setProperty("hibernate.hbm2ddl.import_files", "data.sql");
-        hibernateProperties.setProperty(
-                "hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");//PostgreSQLDialect MySQLDialect
+        hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
 
         return hibernateProperties;
     }

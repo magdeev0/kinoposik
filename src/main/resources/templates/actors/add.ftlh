@@ -7,8 +7,7 @@
             <form class="needs-validation" method="post" novalidate>
                 <div class="form-group">
                     <label for="inputName">Имя актёра</label>
-                    <input type="text" name="name" class="form-control" id="inputName" placeholder="Введите имя"
-                           required>
+                    <input type="text" name="name" class="form-control" id="inputName" placeholder="Введите имя" required>
                     <div class="invalid-feedback">
                         Необходимо ввести имя актёра.
                     </div>
@@ -22,8 +21,7 @@
                 </div>
                 <div class="form-group">
                     <label for="inputImageUrl">Фотография актёра</label>
-                    <input type="text" name="imageUrl" class="form-control" id="inputImageUrl"
-                           placeholder="Укажите ссылку на фото" required>
+                    <input type="text" name="imageUrl" class="form-control" id="inputImageUrl" placeholder="Укажите ссылку на фото" pattern="(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)" required>
                     <div class="invalid-feedback">
                         Необходимо указать ссылку на фото актёра.
                     </div>
