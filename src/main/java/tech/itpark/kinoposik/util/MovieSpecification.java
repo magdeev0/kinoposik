@@ -16,7 +16,6 @@ public class MovieSpecification implements Specification<Movie> {
     @Override
     public Predicate toPredicate
             (Root<Movie> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
-
         if (criteria.getOperation().equalsIgnoreCase(">")) {
             return builder.greaterThanOrEqualTo(
                     root.<String>get(criteria.getKey()), criteria.getValue().toString());
@@ -26,7 +25,7 @@ public class MovieSpecification implements Specification<Movie> {
         } else if (criteria.getOperation().equalsIgnoreCase(":")) {
             if (root.get(criteria.getKey()).getJavaType() == String.class) {
                 return builder.like(
-                        root.<String>get(criteria.getKey().toLowerCase()), "%" + criteria.getValue() + "%");
+                        root.<String>get(criteria.getKey()), "%" + criteria.getValue() + "%");
             } else {
                 return builder.equal(root.get(criteria.getKey()), criteria.getValue());
             }
