@@ -25,9 +25,10 @@ public class MovieSpecification implements Specification<Movie> {
                     root.<String>get(criteria.getKey()), criteria.getValue().toString());
         } else if (criteria.getOperation().equalsIgnoreCase(":")) {
             if (root.get(criteria.getKey()).getJavaType() == String.class) {
-                System.out.println("like");
                 return builder.like(
-                        root.<String>get(criteria.getKey()), criteria.getValue() + "%");
+                        root.<String>get(criteria.getKey()), "%" + criteria.getValue() + "%");
+            } else {
+                return builder.equal(root.get(criteria.getKey()), criteria.getValue());
             }
         }
         return null;
