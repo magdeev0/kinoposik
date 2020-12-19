@@ -160,13 +160,13 @@ public class MovieService {
                 parsedYearEnd = Integer.parseInt(yearEnd);
         }
         MovieSpecification spec1 =
-                new MovieSpecification(new MovieSearchCriteria("name", ":", name));
+                new MovieSpecification(new MovieSearchCriteria("name", ":", name + "%"));
         MovieSpecification spec2 =
                 new MovieSpecification(new MovieSearchCriteria("year", ">", parsedYearStart));
         MovieSpecification spec3 =
                 new MovieSpecification(new MovieSearchCriteria("year", "<", parsedYearEnd));
         MovieSpecification spec4 =
-                new MovieSpecification(new MovieSearchCriteria("country", ":", country));
+                new MovieSpecification(new MovieSearchCriteria("country", ":", country + "%"));
 
         return movieRepository.findAll(Specification.where(spec1).and(spec2).and(spec3).and(spec4));
     }
