@@ -10,8 +10,8 @@
         <#if value?? && value = "id-desc">по id (по убыванию)</#if>
         <#if value?? && value = "year">по году (по возрастанию)</#if>
         <#if value?? && value = "year-desc">по году (по убыванию)</#if>
-        <#if value?? && value = "name">по id (в алфавитном порядке)</#if>
-        <#if value?? && value = "name-desc">по id (в обратном алфавиту порядке)</#if>
+        <#if value?? && value = "name">по названию (в алфавитном порядке)</#if>
+        <#if value?? && value = "name-desc">по названию (в обратном алфавиту порядке)</#if>
     </h3>
         <#if value??>
             <div class="sort-by">
