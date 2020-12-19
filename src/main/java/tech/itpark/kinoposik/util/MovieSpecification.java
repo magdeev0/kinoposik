@@ -4,6 +4,7 @@ import org.springframework.data.jpa.domain.Specification;
 import tech.itpark.kinoposik.model.Movie;
 
 import javax.persistence.criteria.*;
+import java.util.Locale;
 
 public class MovieSpecification implements Specification<Movie> {
 
@@ -28,7 +29,7 @@ public class MovieSpecification implements Specification<Movie> {
                 return builder.like(
                         root.<String>get(criteria.getKey()), "%" + criteria.getValue() + "%");
             } else {
-                return builder.equal(root.get(criteria.getKey()), criteria.getValue());
+                return builder.equal(root.get(criteria.getKey().toLowerCase(Locale.ROOT)), criteria.getValue());
             }
         }
         return null;
