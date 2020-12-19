@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Actor {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "actor_generator")
-    @SequenceGenerator(name="actor_generator", initialValue = 4, sequenceName = "actor_seq")
+    @SequenceGenerator(name="actor_generator", initialValue = 34, sequenceName = "actor_seq")
     private Long id;
 
     @Column(name = "name")

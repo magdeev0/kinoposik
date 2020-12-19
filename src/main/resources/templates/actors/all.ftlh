@@ -13,6 +13,7 @@
                     <div class="col-5">
                         <p class="card-text"><b>Имя актёра:</b> ${actor.name}</p>
                         <p class="card-text"><b>Возраст:</b> <#if actor.age = 0>[нет информации]<#else>${actor.age}</#if></p>
+                        <p class="card-text"><a href="/actor/${actor.id}" class="text-success">Перейти на страницу актёра</a></p>
                     </div>
                 </div>
             </div>

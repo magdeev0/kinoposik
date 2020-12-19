@@ -15,18 +15,22 @@ import java.util.List;
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "movie_generator")
-    @SequenceGenerator(name="movie_generator", initialValue = 5, sequenceName = "movie_seq")
+    @SequenceGenerator(name="movie_generator", initialValue = 8, sequenceName = "movie_seq")
     private Long id;
 
+    @Column(name = "name")
     private String name;
 
     @Column(name = "image_url")
     private String imageUrl;
 
+    @Column(name = "duration")
     private int duration;
 
+    @Column(name = "year")
     private int year;
 
+    @Column(name = "country")
     private String country;
 
     @Column(name = "stage_director")
