@@ -68,7 +68,7 @@
                             Необходимо указать актёров фильма.
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success">Добавить</button>
+                    <button type="submit" class="btn btn-success">Изменить</button>
                 </form>
             </div>
         </div>
