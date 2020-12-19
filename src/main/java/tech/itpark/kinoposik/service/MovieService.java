@@ -9,7 +9,6 @@ import tech.itpark.kinoposik.util.*;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
 @Service
@@ -160,7 +159,7 @@ public class MovieService {
                 parsedYearEnd = Integer.parseInt(yearEnd);
         }
         MovieSpecification spec1 =
-                new MovieSpecification(new MovieSearchCriteria("name", ":", name + "%"));
+                new MovieSpecification(new MovieSearchCriteria("name", ":", name));
         MovieSpecification spec2 =
                 new MovieSpecification(new MovieSearchCriteria("year", ">", parsedYearStart));
         MovieSpecification spec3 =
