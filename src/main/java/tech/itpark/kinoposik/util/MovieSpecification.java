@@ -3,8 +3,10 @@ package tech.itpark.kinoposik.util;
 import org.springframework.data.jpa.domain.Specification;
 import tech.itpark.kinoposik.model.Movie;
 
-import javax.persistence.criteria.*;
-import java.util.Locale;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 public class MovieSpecification implements Specification<Movie> {
 
@@ -27,9 +29,9 @@ public class MovieSpecification implements Specification<Movie> {
         } else if (criteria.getOperation().equalsIgnoreCase(":")) {
             if (root.get(criteria.getKey()).getJavaType() == String.class) {
                 return builder.like(
-                        root.<String>get(criteria.getKey().toLowerCase()), "%" + criteria.getValue() + "%");
+                        root.<String>get(criteria.getKey()), "%" + criteria.getValue() + "%");
             } else {
-                return builder.equal(root.get(criteria.getKey().toLowerCase()), criteria.getValue());
+                return builder.equal(root.get(criteria.getKey()), criteria.getValue());
             }
         }
         return null;
