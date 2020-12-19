@@ -1,5 +1,5 @@
 INSERT INTO movies VALUES (1, 'США', 136, 'https://kinoposik.herokuapp.com/images/movies/matrix.jpg', false, 'Матрица', 'Лана Вачовски, Лилли Вачовски', 1999);
-INSERT INTO movies VALUES (2, 'США', 142, 'https://kinoposik.herokuapp.com/images/movies/shawshank.jpg', false, 'Побег из шоушенка', 'Фрэнк Дарабонт', 1994);
+INSERT INTO movies VALUES (2, 'США', 142, 'https://kinoposik.herokuapp.com/images/movies/shawshank.jpg', false, 'Побег из Шоушенка', 'Фрэнк Дарабонт', 1994);
 INSERT INTO movies VALUES (3, 'США', 165, 'https://kinoposik.herokuapp.com/images/movies/django.jpg', false, 'Джанго освобожденный', 'Квентин Тарантино', 2012);
 INSERT INTO movies VALUES (4, 'Великобритания', 148, 'https://kinoposik.herokuapp.com/images/movies/inception.jpg', false, 'Начало', 'Кристофер Нолан', 2010);
 INSERT INTO movies VALUES (5, 'США', 138, 'https://kinoposik.herokuapp.com/images/movies/shutter-island.jpg', false, 'Остров проклятых', 'Мартин Скорсезе', 2009);
