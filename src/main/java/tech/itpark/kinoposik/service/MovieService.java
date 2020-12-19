@@ -159,16 +159,14 @@ public class MovieService {
         if (!yearEnd.isBlank()) {
                 parsedYearEnd = Integer.parseInt(yearEnd);
         }
-        String toLowerName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
-        String toLowerCountry = country.substring(0, 1).toUpperCase() + country.substring(1).toLowerCase();
         MovieSpecification spec1 =
-                new MovieSpecification(new MovieSearchCriteria("name".toLowerCase(), ":", toLowerName));
+                new MovieSpecification(new MovieSearchCriteria("name".toLowerCase(), ":", name));
         MovieSpecification spec2 =
                 new MovieSpecification(new MovieSearchCriteria("year", ">", parsedYearStart));
         MovieSpecification spec3 =
                 new MovieSpecification(new MovieSearchCriteria("year", "<", parsedYearEnd));
         MovieSpecification spec4 =
-                new MovieSpecification(new MovieSearchCriteria("country", ":", toLowerCountry));
+                new MovieSpecification(new MovieSearchCriteria("country", ":", country));
 
         return movieRepository.findAll(Specification.where(spec1).and(spec2).and(spec3).and(spec4));
     }
