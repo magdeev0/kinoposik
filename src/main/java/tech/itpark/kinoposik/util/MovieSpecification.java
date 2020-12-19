@@ -28,9 +28,6 @@ public class MovieSpecification implements Specification<Movie> {
                 System.out.println("like");
                 return builder.like(
                         root.<String>get(criteria.getKey()), criteria.getValue() + "%");
-            } else {
-                System.out.println("eq");
-                return builder.equal(root.get(criteria.getKey()), criteria.getValue());
             }
         }
         return null;
