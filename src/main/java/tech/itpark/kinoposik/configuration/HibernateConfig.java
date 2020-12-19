@@ -24,7 +24,7 @@ public class HibernateConfig {
         return sessionFactory;
     }
 
-    /*@Bean
+    @Bean
     public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
@@ -33,9 +33,9 @@ public class HibernateConfig {
         dataSource.setPassword("password");
 
         return dataSource;
-    }*/
+    }
 
-    @Value("${spring.datasource.url}")
+    /*@Value("${spring.datasource.url}")
     private String dbUrl;
 
     @Bean
@@ -43,13 +43,13 @@ public class HibernateConfig {
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl(dbUrl);
         return new HikariDataSource(config);
-    }
+    }*/
 
     private final Properties hibernateProperties() {
         Properties hibernateProperties = new Properties();
         hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "create");
         hibernateProperties.setProperty("hibernate.hbm2ddl.import_files", "data.sql");
-        hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+        hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
         hibernateProperties.setProperty("hibernate.jdbc.lob.non_contextual_creation", "true");
 
         return hibernateProperties;
