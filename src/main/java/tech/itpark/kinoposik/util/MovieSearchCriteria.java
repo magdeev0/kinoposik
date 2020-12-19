@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Locale;
+
 @Getter
 @Setter
 
@@ -13,8 +15,8 @@ public class MovieSearchCriteria {
     private Object value;
 
     public MovieSearchCriteria(String key, String operation, Object value) {
-        this.key = key.toLowerCase();
+        this.key = key.toLowerCase(Locale.ROOT);
         this.operation = operation;
-        this.value = value.toString().toLowerCase();
+        this.value = value;
     }
 }

@@ -160,7 +160,7 @@ public class MovieService {
                 parsedYearEnd = Integer.parseInt(yearEnd);
         }
         MovieSpecification spec1 =
-                new MovieSpecification(new MovieSearchCriteria("name".toLowerCase(), ":", name));
+                new MovieSpecification(new MovieSearchCriteria("name", ":", name.toLowerCase(Locale.ROOT)));
         MovieSpecification spec2 =
                 new MovieSpecification(new MovieSearchCriteria("year", ">", parsedYearStart));
         MovieSpecification spec3 =
