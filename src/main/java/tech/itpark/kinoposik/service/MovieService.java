@@ -159,9 +159,9 @@ public class MovieService {
         if (!yearEnd.isBlank()) {
                 parsedYearEnd = Integer.parseInt(yearEnd);
         }
-        String namee = name.toLowerCase();
+        String nameToLower = name.toLowerCase();
         MovieSpecification spec1 =
-                new MovieSpecification(new MovieSearchCriteria("name", ":", namee));
+                new MovieSpecification(new MovieSearchCriteria("name", ":", nameToLower));
         MovieSpecification spec2 =
                 new MovieSpecification(new MovieSearchCriteria("year", ">", parsedYearStart));
         MovieSpecification spec3 =
