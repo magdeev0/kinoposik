@@ -78,7 +78,4 @@ public interface MovieRepository extends JpaRepository<Movie, Long>, JpaSpecific
 
     @Query
     Iterable<Movie> findAllByIsDeletedFalseOrderByYearDesc();
-
-    @Query
-    Integer countAll();
 }
