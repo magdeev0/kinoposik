@@ -29,7 +29,7 @@ public class MovieSpecification implements Specification<Movie> {
                 return builder.like(
                         root.<String>get(criteria.getKey()), "%" + criteria.getValue() + "%");
             } else {
-                return builder.equal(root.get(criteria.getKey().toLowerCase(Locale.ROOT)), criteria.getValue());
+                return builder.equal(root.get(criteria.getKey()), criteria.getValue());
             }
         }
         return null;
