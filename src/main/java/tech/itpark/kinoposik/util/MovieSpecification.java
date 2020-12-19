@@ -4,6 +4,7 @@ import org.springframework.data.jpa.domain.Specification;
 import tech.itpark.kinoposik.model.Movie;
 
 import javax.persistence.criteria.*;
+import java.util.Locale;
 
 public class MovieSpecification implements Specification<Movie> {
 
