@@ -11,11 +11,4 @@
             <li>Сортировка фильмов</li>
         </ul>
     </div>
-    <div>
-        Статистика:
-        <ul>
-            <li>Фильмов всего: <a href="/movie/all" class="text-success">${countMovies}</a>, из них удалено ${countDeletedMovies}</li>
-            <li>Актёров всего: <a href="/actor/all" class="text-success">${countActors}</a>, из них удалено ${countDeletedActors}</li>
-        </ul>
-    </div>
 </@c.page>
