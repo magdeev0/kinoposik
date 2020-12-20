@@ -17,7 +17,7 @@
             </div>
             </#if>
             <div class="card m-3 shadow-sm rounded">
-                <h5 class="card-header"><a href="/actor/${actor.get().id}" class="text-success">${actor.get().name}</a><a href="/actor/delete/${actor.get().id}" class="text-hide icon-attr" style="background-image: url('${host}icons/delete.svg');">delete</a><a href="/actor/edit/${actor.get().id}" class="text-hide icon-attr" style="background-image: url('${host}icons/edit.svg');">edit</a></h5>
+                <h5 class="card-header"><a href="/actor/${actor.get().id}" class="text-success">${actor.get().name}</a><a href="/actor/delete/${actor.get().id}" class="text-hide icon-attr" style="background-image: url('https://kinoposik.herokuapp.com/icons/delete.svg');">delete</a><a href="/actor/edit/${actor.get().id}" class="text-hide icon-attr" style="background-image: url('https://kinoposik.herokuapp.com/icons/edit.svg');">edit</a></h5>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-3 border-success border-right" style="text-align: center">
